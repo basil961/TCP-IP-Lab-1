@@ -50,7 +50,7 @@ exit
 sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE 
 
 ![router1](router1.png)
-
+```
 ### Второй роутер (R2)
 ```
 sudo vtysh                    	
@@ -68,6 +68,7 @@ exit
 exit                          		
 copy running-config startup-config 	
 ![router2](router2.png)
+```
 ### Третий роутер (R3)
 ```
 sudo vtysh                     		
@@ -86,6 +87,7 @@ exit
 copy running-config startup-config 	
 
 ![router3](router3.png)
+```
 ### Четвёртый роутер (R4)
 ```
 sudo vtysh                         	
