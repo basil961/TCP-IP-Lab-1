@@ -48,8 +48,9 @@ copy running-config startup-config
 exit                          		
 
 sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE 
-
+```
 ![router1](router1.png)
+```
 ```
 ### Второй роутер (R2)
 ```
@@ -66,8 +67,10 @@ no passive-interface eth3
 network 172.31.0.0/24 area 0  	
 exit                          		
 exit                          		
-copy running-config startup-config 	
+copy running-config startup-config 
+```
 ![router2](router2.png)
+```
 ```
 ### Третий роутер (R3)
 ```
@@ -85,8 +88,9 @@ network 172.31.0.0/24 area 0
 exit                           		
 exit                           		
 copy running-config startup-config 	
-
+```
 ![router3](router3.png)
+```
 ```
 ### Четвёртый роутер (R4)
 ```
@@ -102,5 +106,6 @@ network 192.168.1.0/24 area 1
 exit                              
 exit                               	
 copy running-config startup-config 
-
+```
 ![router4](router4.png)
+```
