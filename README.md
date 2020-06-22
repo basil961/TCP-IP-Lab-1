@@ -1,2 +1,2 @@
-# TCP-IP-Lab-1
-Lab №1
+# TCP-IP-Labs
+
