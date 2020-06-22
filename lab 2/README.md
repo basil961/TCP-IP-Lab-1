@@ -34,72 +34,71 @@ sudo firewall-cmd --list-all
 ```
 ### Первый роутер (R1)
 ```
-sudo vtysh                    		# вход в quagga
-configure terminal            		# вход режим конфигурации роутера
-router ospf                   		# включение режима OSPF на роутере
-router-id  10.0.0.1           		# присвоение id роутеру в сети OSPF
-passive-interface default     		# выключение машрута по умолчанию
-network 172.16.0.0/24 area 0  		# присвоение нулевой зоны для сети сети 172.16.0.0/24
-no passive-interface eth1     		# включение интерфеса eth1, по умолчанию выключен
-default-information originate 		# включение распространения маршрута по умолчанию
-exit                          		# выход из режима настройки OSPF
-exit                          		# выход в основной режим
-copy running-config startup-config 	# сохранение конфигурации в память роутера, чтобы при запуске не приходилось каждый раз настраивать заново
-exit                          		# выход в консоль
+sudo vtysh                    		
+configure terminal            		
+router ospf                   		
+router-id  10.0.0.1           		
+passive-interface default     		
+network 172.16.0.0/24 area 0  		
+no passive-interface eth1     		
+default-information originate 		
+exit                          		
+exit                          		
+copy running-config startup-config 	
+exit                          		
 
-sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE  # включение маскарада на интерфейсе eth1
-```
+sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE 
+
 ![router1](router1.png)
 
 ### Второй роутер (R2)
 ```
-sudo vtysh                    		# вход в quagga
-configure terminal            		# вход режим конфигурации роутера
-router ospf                   		# включение режима OSPF на роутере
-router-id  10.0.0.2           		# присвоение id роутеру в сети OSPF
-passive-interface default     		# выключение машрута по умолчанию
-no passive-interface eth1     		# включение интерфеса eth1, по умолчанию выключен
-network 172.16.0.0/24 area 0  		# присвоение area 0 сети 172.16.0.0/24
-no passive-interface eth2     		# включение интерфеса eth2, по умолчанию выключен
-network 172.16.1.0/24 area 1  		# присвоение area 1 сети 172.16.1.0/24
-no passive-interface eth3     		# включение интерфеса eth3, по умолчанию выключен
-network 172.31.0.0/24 area 0  		# присвоение area 0 сети 172.31.0.0/24
-exit                          		# выход из режима настройки OSPF
-exit                          		# выход в основной режим
-copy running-config startup-config 	# сохранение конфигурации в память роутера, чтобы при запуске не приходилось каждый раз настраивать заново
-```
+sudo vtysh                    	
+configure terminal            	
+router ospf                   		
+router-id  10.0.0.2           		
+passive-interface default     	
+no passive-interface eth1     		
+network 172.16.0.0/24 area 0  		
+no passive-interface eth2     		
+network 172.16.1.0/24 area 1  		
+no passive-interface eth3     		
+network 172.31.0.0/24 area 0  	
+exit                          		
+exit                          		
+copy running-config startup-config 	
 ![router2](router2.png)
 ### Третий роутер (R3)
 ```
-sudo vtysh                     		# вход в quagga
-configure terminal             		# вход режим конфигурации роутера
-router ospf                    		# включение режима OSPF на роутере
-router-id  10.0.0.3            		# присвоение id роутеру в сети OSPF
-passive-interface default      		# выключение машрута по умолчанию
-no passive-interface eth1      		# включение интерфеса eth1, по умолчанию выключен
-network 172.16.0.0/24 area 0   		# присвоение area 0 сети 172.16.0.0/24
-no passive-interface eth2      		# включение интерфеса eth2, по умолчанию выключен
-network 192.168.0.0/24 area 0  		# присвоение area 1 сети 192.168.0.0/24
-no passive-interface eth3      		# включение интерфеса eth3
-network 172.31.0.0/24 area 0   		# присвоение area 0 сети 172.31.0.0/24
-exit                           		# выход из режима настройки OSPF
-exit                           		# выход в основной режим
-copy running-config startup-config 	# сохранение конфигурации в память роутера, чтобы при запуске не приходилось каждый раз настраивать заново
-```
+sudo vtysh                     		
+configure terminal             		
+router ospf                    		
+router-id  10.0.0.3            		
+passive-interface default      		
+no passive-interface eth1      		
+network 172.16.0.0/24 area 0   		
+no passive-interface eth2      		
+network 192.168.0.0/24 area 0  	
+no passive-interface eth3      		
+network 172.31.0.0/24 area 0   		
+exit                           		
+exit                           		
+copy running-config startup-config 	
+
 ![router3](router3.png)
 ### Четвёртый роутер (R4)
 ```
-sudo vtysh                         	# вход в quagga
-configure terminal                 	# вход режим конфигурации роутера
-router ospf                        	# включение режима OSPF на роутере
-router-id  10.0.0.4                	# присвоение id роутеру в сети OSPF
-passive-interface default          	# выключение машрута по умолчанию
-no passive-interface eth1          	# включение интерфеса eth1, по умолчанию выключен
-network 172.16.1.0/24 area 1       	# присвоение area 0 сети 172.16.1.0/24
-no passive-interface eth2          	# включение интерфеса eth2, по умолчанию выключен
-network 192.168.1.0/24 area 1      	# присвоение area 1 сети 192.168.1.0/24
-exit                               	# выход из режима настройки OSPF
-exit                               	# выход в основной режим
-copy running-config startup-config 	# сохранение конфигурации в память роутера, чтобы при запуске не приходилось каждый раз настраивать заново
-```
+sudo vtysh                         	
+configure terminal                 
+router ospf                        	
+router-id  10.0.0.4                	
+passive-interface default          	
+no passive-interface eth1          	
+network 172.16.1.0/24 area 1       	
+no passive-interface eth2          	
+network 192.168.1.0/24 area 1      	
+exit                              
+exit                               	
+copy running-config startup-config 
+
 ![router4](router4.png)
